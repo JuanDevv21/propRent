@@ -1,0 +1,126 @@
+.navi {
+    display: flex;
+    width: 1100px;
+    justify-self: center;
+}
+
+.ref {
+    text-decoration: none;
+    color: inherit;
+}
+
+.login {
+    border: 3px solid #d5e0fc;
+    width: 480px;
+    justify-self: center;
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.login p {
+    font-family: 'Inter';
+    margin-top: 30px;
+    margin-left: 30px;
+    font-weight: 600;
+    font-size: 22px;
+    background-color: white;
+}
+
+.logintitle {
+    margin-left: 30px;
+    margin-top: 5px;
+    color: gray;
+    font-family: 'Inter';
+    font-size: 14px;
+    background-color: white;
+}
+
+.image {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-left: 30px;
+    background-color: #d5e0fc;
+    border-radius: 5px;
+}
+
+.tab {
+    display: flex;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 30px;
+    background-color: white;
+    border: 1px solid transparent;
+    padding: 4px;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+
+.tab button {
+    height: 30px;
+    width: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    border: transparent;
+    border-radius: 5px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+    margin-top: 30px;
+    background-color: white;
+}
+
+.formulario span {
+    background-color: white;
+    font-family: 'Inter';
+    margin-bottom: 5px;
+}
+
+.formulario input {
+    background-color: white;
+    border: 1px solid rgb(219, 219, 219);
+    height: 40px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    margin-right: 30px;
+    border-radius: 5px;
+}
+
+.sendform {
+    border: 1px solid transparent;
+
+    margin-right: 30px;
+    height: 50px;
+    background-color: #1E5EFF;
+    font-family: 'Inter';
+    font-size: 18px;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.registera {
+    background-color: white;
+    justify-self: center;
+    margin: 30px;
+    text-align: center;
+    font-family: 'Inter';
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.activeTab {
+    background-color: white !important;
+    border: 1px solid gray !important;
+}
