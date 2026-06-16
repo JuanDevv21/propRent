@@ -5,6 +5,7 @@ const RootLayout = ({children}) => {
     <html>
       <body>
         <header>
+          <title>PropRent</title>
         </header>
         <main>
           {children}

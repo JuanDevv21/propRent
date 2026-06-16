@@ -1,7 +1,7 @@
 "use client"
 import styles from "./page.module.css"
 import Navbar from "@/components/Navbar"
-import { useState } from "react"
+import { use, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import Shield from "../../assets/check-shield.svg"
@@ -10,6 +10,69 @@ import Shield from "../../assets/check-shield.svg"
 const Propietario = () => {
 
     const [tab, setTab] = useState('iniciar')
+    const [nombrePropietario, setNombrePropietario] = useState('')
+    const [documentoPropietario, setDocumentoPropietario] = useState('')
+    const [emailPropietario, setEmailPropietario] = useState('')
+    const [passwordPropietario, setPasswordPropietario] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+
+    const [loginEmail, setLoginEmail] = useState('')
+    const [loginPassword, setLoginPassword] = useState('')
+
+    const iniciarSesion = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await fetch(
+                '/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        emailPropietario: loginEmail,
+                        passwordPropietario: loginPassword
+                    })
+                }
+            )
+
+            const data = await response.json()
+
+            if(!response.ok) {
+                alert(data.error)
+                return
+            }
+            console.log(data)
+            alert('Login exitoso')
+        } catch(error) {
+            console.error(error)
+
+        }
+    }
+
+    const registrarPropietario = async (e) => {
+        e.preventDefault()
+
+        if(passwordPropietario !== confirmPassword){
+            alert('Las contrasenas no coninciden')
+            return
+        }
+
+        const response = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombrePropietario,
+                documentoPropietario: Number(documentoPropietario),
+                emailPropietario,
+                passwordPropietario
+            })
+        })
+
+        const data = await response.json()
+        console.log(data)
+    }
 
     return (
         <>
@@ -31,26 +94,26 @@ const Propietario = () => {
                 </div>
                 {
                     tab === 'iniciar' ? (
-                        <form className={styles.formulario}>
+                        <form className={styles.formulario} onSubmit={iniciarSesion}>
                             <span>Correo electrónico</span>
-                            <input type="email" placeholder="tu@correo.com"></input>
+                            <input type="email" placeholder="tu@correo.com" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)}></input>
                             <span>Contraseña</span>
-                            <input type="password" placeholder="********"></input>
-                            <button className={styles.sendform}>Iniciar Sesión</button>
+                            <input type="password" placeholder="********" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)}></input>
+                            <button className={styles.sendform} type="submit">Iniciar Sesión</button>
                         </form>
                     ): (
-                        <form className={styles.formulario}>
+                        <form className={styles.formulario} onSubmit={registrarPropietario}>
                             <span>Nombre completo</span>
-                            <input type="text" placeholder="Carlos Sanchez"></input>
+                            <input type="text" placeholder="Carlos Sanchez" value={nombrePropietario} onChange={(e) => setNombrePropietario(e.target.value)}></input>
                             <span>Documento de identidad</span>
-                            <input type="text" placeholder="CC, CE, PP"></input>
+                            <input type="text" placeholder="CC, CE, PP" value={documentoPropietario} onChange={(e) => setDocumentoPropietario(e.target.value)}></input>
                             <span>Correo electronico</span>
-                            <input type="email" placeholder="tu@correo.com"></input>
+                            <input type="email" placeholder="tu@correo.com" value={emailPropietario} onChange={(e) => setEmailPropietario(e.target.value)}></input>
                             <span>Contraseña</span>
-                            <input type="password" placeholder="********"/>
+                            <input type="password" placeholder="********" value={passwordPropietario} onChange={(e) => setPasswordPropietario(e.target.value)}/>
                             <span>Confirma tu contraseña</span>
-                            <input type="password" placeholder="********"></input>
-                            <button className={styles.sendform}>Crear cuenta</button>
+                            <input type="password" placeholder="********" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>
+                            <button className={styles.sendform} type="submit">Crear cuenta</button>
                         </form>
                     )
                 }
