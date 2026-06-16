@@ -45,7 +45,6 @@ const Propietario = () => {
             alert('Login exitoso')
         } catch(error) {
             console.error(error)
-
         }
     }
 
