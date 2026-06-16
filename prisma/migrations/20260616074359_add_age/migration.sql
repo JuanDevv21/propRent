@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Propietario" ADD COLUMN     "fechaNacimiento" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

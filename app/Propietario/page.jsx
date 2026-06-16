@@ -1,10 +1,11 @@
 "use client"
 import styles from "./page.module.css"
 import Navbar from "@/components/Navbar"
-import { use, useState } from "react"
+import {useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import Shield from "../../assets/check-shield.svg"
+import { colombia } from "@/data/Colombia"
 
 
 const Propietario = () => {
@@ -18,6 +19,10 @@ const Propietario = () => {
 
     const [loginEmail, setLoginEmail] = useState('')
     const [loginPassword, setLoginPassword] = useState('')
+
+    const [departamento, setDepartamento] = useState('')
+    const [ciudad, setCiudad] = useState('')
+    const [fechaNacimiento, setFechaNacimiento] = useState('')
 
     const iniciarSesion = async (e) => {
         e.preventDefault()
@@ -51,7 +56,8 @@ const Propietario = () => {
     const registrarPropietario = async (e) => {
         e.preventDefault()
 
-        if(passwordPropietario !== confirmPassword){
+        try {
+            if(passwordPropietario !== confirmPassword){
             alert('Las contrasenas no coninciden')
             return
         }
@@ -64,13 +70,27 @@ const Propietario = () => {
             body: JSON.stringify({
                 nombrePropietario,
                 documentoPropietario: Number(documentoPropietario),
+                departamento,
+                ciudad,
+                fechaNacimiento: new Date(fechaNacimiento),
                 emailPropietario,
                 passwordPropietario
             })
         })
 
         const data = await response.json()
+
+        if(!response.ok){
+            alert(data.error || 'hubo un error en el registro')
+        }
+        alert('Registro exitoso. Ahora puedes iniciar sesión')
+        setTab('iniciar')
+        setLoginEmail(emailPropietario)
         console.log(data)
+        } catch(error) {
+            console.error(error)
+            alert('No se pudo conectar con el servidor')
+        }
     }
 
     return (
@@ -106,6 +126,24 @@ const Propietario = () => {
                             <input type="text" placeholder="Carlos Sanchez" value={nombrePropietario} onChange={(e) => setNombrePropietario(e.target.value)}></input>
                             <span>Documento de identidad</span>
                             <input type="text" placeholder="CC, CE, PP" value={documentoPropietario} onChange={(e) => setDocumentoPropietario(e.target.value)}></input>
+                            <span>Departamento</span>
+                            <select value={departamento} onChange={(e) => {
+                                setDepartamento(e.target.value) 
+                                setCiudad('')}}>
+                                    <option value=''>Selecciona un Departamento</option>
+                                    {Object.keys(colombia).map((dep) => (
+                                        <option key={dep} value={dep}>{dep}</option>
+                                    ))}
+                            </select>
+                            <span>Ciudad de residencia</span>
+                            <select value={ciudad} onChange={(e) => setCiudad(e.target.value)} disabled={!departamento}>
+                                <option value=''>Selecciona una Ciudad</option>
+                                {departamento && colombia[departamento].map((c) => (
+                                    <option key={c} value={c}>{c}</option>
+                                ))}
+                            </select>
+                            <span>Fecha de nacimiento</span>
+                            <input type="date" value={fechaNacimiento} onChange={(e) => setFechaNacimiento(e.target.value)} max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0]}></input>
                             <span>Correo electronico</span>
                             <input type="email" placeholder="tu@correo.com" value={emailPropietario} onChange={(e) => setEmailPropietario(e.target.value)}></input>
                             <span>Contraseña</span>

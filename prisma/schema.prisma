@@ -11,6 +11,9 @@ model Propietario {
   id                   Int      @id @default(autoincrement())
   nombrePropietario    String
   documentoPropietario Int      @unique
+  departamento         String   @default("")
+  ciudad               String   @default("")
+  fechaNacimiento      DateTime
   emailPropietario     String   @unique
   passwordPropietario  String
   createdAt            DateTime @default(now())
@@ -20,6 +23,9 @@ model Inquilino {
   id                 Int      @id @default(autoincrement())
   nombreInquilino    String
   documentoInquilino Int      @unique
+  departamento       String   @default("")
+  ciudad             String   @default("")
+  fechaNacimiento    DateTime
   emailInquilino     String   @unique
   passwordInquilino  String
   createdAt          DateTime @default(now())

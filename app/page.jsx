@@ -16,7 +16,7 @@ const Home = () => {
         <span>La plataforma de gestión de alquileres pensada para propietarios independientes e inquilinos en Latinoamérica</span>
         <div>
           <Link className={styles.ref} href={'/Propietario'}><p style={{color:"white", backgroundColor: "#1E5EFF"}}>Entrar como propietario →</p></Link>
-          <p style={{border: "1px solid gray"}}>Entrar como inquilino →</p>
+          <Link className={styles.ref}  href={'/Inquilino'}><p style={{border: "1px solid gray"}}>Entrar como inquilino →</p></Link>
         </div>
       </section>
       <section className={styles.piepagina}>

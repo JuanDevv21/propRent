@@ -95,6 +95,18 @@
     border-radius: 5px;
 }
 
+.formulario select {
+    border: 1px solid rgb(219, 219, 219);
+    height: 40px;
+    margin-right: 30px;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+.formulario select option {
+    background-color: white;
+}
+
 .sendform {
     border: 1px solid transparent;
 

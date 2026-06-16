@@ -4,7 +4,21 @@ const bcrypt = require('bcrypt')
 async function POST(request) {
     try {
         const body = await request.json()
-        const {nombreInquilino, documentoInquilino, emailInquilino, passwordInquilino} = body
+        const {nombreInquilino, documentoInquilino, departamento, ciudad, fechaNacimiento, emailInquilino, passwordInquilino} = body
+
+        const hoy = new Date()
+        const nacimiento = new Date(fechaNacimiento)
+        const edad = hoy.getFullYear() - nacimiento.getFullYear()
+        const cumplioCumple =
+        hoy.getMonth() > nacimiento.getMonth() || (hoy.getMonth() === nacimiento.getMonth() && hoy.getDate() === nacimiento.getDate())
+        const edadReal = cumplioCumple ? edad : edad - 1
+
+        if (edadReal < 18) {
+            return Response.json(
+                {error: "Debes ser mayor de edad para ingresar a la plataforma"},
+                {status: 400}
+            )
+        }
     
         const propietarioExiste = await prisma.inquilino.findFirst({
             where: {
@@ -31,6 +45,9 @@ async function POST(request) {
             data: {
                 nombreInquilino,
                 documentoInquilino,
+                departamento,
+                ciudad,
+                fechaNacimiento,
                 emailInquilino,
                 passwordInquilino: hashedPassword
             }

@@ -5,6 +5,7 @@ import { use, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import Home from "../../assets/home-alt.svg"
+import { colombia } from "@/data/Colombia"
 
 
 const Inquilino = () => {
@@ -18,6 +19,11 @@ const Inquilino = () => {
 
     const [loginEmail, setLoginEmail] = useState('')
     const [loginPassword, setLoginPassword] = useState('')
+
+    const [departamento, setDepartamento] = useState('')
+    const [ciudad, setCiudad] = useState('')
+    const [fechaNacimiento, setFechaNacimiento] = useState('')
+
 
     const iniciarSesionInquilino = async(e) => {
         e.preventDefault()
@@ -52,6 +58,7 @@ const Inquilino = () => {
             alert('las contraseñas no coinciden')
             return
         }
+        try {
         const response = await fetch('/api/auth/registerInquilino', {
             method: 'POST',
             headers: {
@@ -60,12 +67,29 @@ const Inquilino = () => {
             body: JSON.stringify({
                 nombreInquilino,
                 documentoInquilino: Number(documentoInquilino),
+                departamento,
+                ciudad,
+                fechaNacimiento: new Date(fechaNacimiento),
                 emailInquilino,
                 passwordInquilino
             })
         })
+
         const data = await response.json()
-        console.log(data)
+
+        if (!response.ok) {
+            alert(data.error || 'Hubo un error en el registro')
+            return
+        }
+
+        alert('Registro exitoso. Ahora puedes iniciar sesión.')
+        setTab('iniciar')
+        setLoginEmail(emailInquilino)
+
+    } catch (error) {
+        console.error("Error en el registro:", error)
+        alert('No se pudo conectar con el servidor')
+    }
     }
 
     return (
@@ -101,6 +125,25 @@ const Inquilino = () => {
                             <input type="text" placeholder="Carlos Sanchez" value={nombreInquilino} onChange={(e) => setNombreInquilino(e.target.value)}></input>
                             <span>Documento de identidad</span>
                             <input type="text" placeholder="CC, CE, PP" value={documentoInquilino} onChange={(e) => setDocumentoInquilino(e.target.value)}></input>
+                            <span>Departamento</span>
+                            <select value={departamento} onChange={(e) => {
+                                setDepartamento(e.target.value) 
+                                setCiudad('')
+                            }}>
+                                <option value=''>Selecciona un Departamento</option>
+                                {Object.keys(colombia).map((dep) => (
+                                    <option key={dep} value={dep}>{dep}</option>
+                                ))}
+                            </select>
+                            <span>Ciudad de residencia</span>
+                            <select value={ciudad} onChange={(e) => setCiudad(e.target.value)} disabled={!departamento}>
+                                <option value=''>Selecciona una Ciudad</option>
+                                {departamento && colombia[departamento].map((c) => (
+                                    <option key={c} value={c}>{c}</option>
+                                ))}
+                            </select>
+                            <span>Fecha de nacimiento</span>
+                            <input type="date" value={fechaNacimiento} onChange={(e) => setFechaNacimiento(e.target.value)} max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0]}></input>
                             <span>Correo electronico</span>
                             <input type="email" placeholder="tu@correo.com" value={emailInquilino} onChange={(e) => setEmailInquilino(e.target.value)}></input>
                             <span>Contraseña</span>
