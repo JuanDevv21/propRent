@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 async function POST(request) {
     try {
         const body = await request.json()
-        const {nombrePropietario, documentoPropietario, departamento, fechaNacimiento, ciudad, emailPropietario, passwordPropietario} = body
+        const {nombrePropietario, documentoPropietario, departamento, fechaNacimiento, telefono, ciudad, emailPropietario, passwordPropietario} = body
         
         const hoy = new Date()
         const nacimiento = new Date(fechaNacimiento)
@@ -46,6 +46,7 @@ async function POST(request) {
                 departamento,
                 ciudad,
                 fechaNacimiento,
+                telefono,
                 emailPropietario,
                 passwordPropietario: hashedPassword
             }

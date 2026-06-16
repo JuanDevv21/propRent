@@ -23,6 +23,7 @@ const Inquilino = () => {
     const [departamento, setDepartamento] = useState('')
     const [ciudad, setCiudad] = useState('')
     const [fechaNacimiento, setFechaNacimiento] = useState('')
+    const [telefono, setTelefono] = useState('')
 
 
     const iniciarSesionInquilino = async(e) => {
@@ -70,6 +71,7 @@ const Inquilino = () => {
                 departamento,
                 ciudad,
                 fechaNacimiento: new Date(fechaNacimiento),
+                telefono,
                 emailInquilino,
                 passwordInquilino
             })
@@ -83,8 +85,18 @@ const Inquilino = () => {
         }
 
         alert('Registro exitoso. Ahora puedes iniciar sesión.')
+        setNombrePropietario('')
+        setDocumentoPropietario('')
+        setDepartamento('')
+        setCiudad('')
+        setFechaNacimiento('')
+        setTelefono('')
+        setEmailPropietario('')
+        setPasswordPropietario('')
+        setConfirmPassword('')
         setTab('iniciar')
         setLoginEmail(emailInquilino)
+        
 
     } catch (error) {
         console.error("Error en el registro:", error)
@@ -144,6 +156,8 @@ const Inquilino = () => {
                             </select>
                             <span>Fecha de nacimiento</span>
                             <input type="date" value={fechaNacimiento} onChange={(e) => setFechaNacimiento(e.target.value)} max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0]}></input>
+                            <span>Numero celular +57</span>
+                            <input type="text" value={telefono} onChange={(e) => setTelefono(e.target.value)}></input>
                             <span>Correo electronico</span>
                             <input type="email" placeholder="tu@correo.com" value={emailInquilino} onChange={(e) => setEmailInquilino(e.target.value)}></input>
                             <span>Contraseña</span>

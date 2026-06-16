@@ -23,6 +23,7 @@ const Propietario = () => {
     const [departamento, setDepartamento] = useState('')
     const [ciudad, setCiudad] = useState('')
     const [fechaNacimiento, setFechaNacimiento] = useState('')
+    const [telefono, setTelefono] = useState('')
 
     const iniciarSesion = async (e) => {
         e.preventDefault()
@@ -73,6 +74,7 @@ const Propietario = () => {
                 departamento,
                 ciudad,
                 fechaNacimiento: new Date(fechaNacimiento),
+                telefono,
                 emailPropietario,
                 passwordPropietario
             })
@@ -84,9 +86,20 @@ const Propietario = () => {
             alert(data.error || 'hubo un error en el registro')
         }
         alert('Registro exitoso. Ahora puedes iniciar sesión')
+        setNombrePropietario('')
+        setDocumentoPropietario('')
+        setDepartamento('')
+        setCiudad('')
+        setFechaNacimiento('')
+        setTelefono('')
+        setEmailPropietario('')
+        setPasswordPropietario('')
+        setConfirmPassword('')
         setTab('iniciar')
         setLoginEmail(emailPropietario)
         console.log(data)
+
+
         } catch(error) {
             console.error(error)
             alert('No se pudo conectar con el servidor')
@@ -144,6 +157,8 @@ const Propietario = () => {
                             </select>
                             <span>Fecha de nacimiento</span>
                             <input type="date" value={fechaNacimiento} onChange={(e) => setFechaNacimiento(e.target.value)} max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0]}></input>
+                            <span>Numero celular +57</span>
+                            <input type="text" value={telefono} onChange={(e) => setTelefono(e.target.value)}></input>
                             <span>Correo electronico</span>
                             <input type="email" placeholder="tu@correo.com" value={emailPropietario} onChange={(e) => setEmailPropietario(e.target.value)}></input>
                             <span>Contraseña</span>
