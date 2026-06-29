@@ -1,0 +1,43 @@
+.section1 {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f4f6f8;
+}
+
+.section1left {
+    padding: 20px 50px;
+    background-color: #f4f6f8;
+}
+
+.section1left p {
+    font-size: 30px;
+    font-weight: 800;
+    background-color: #f4f6f8;
+}
+
+.section1left span {
+    font-size: 14px;
+    color: rgb(151,151,151);
+    background-color: #f4f6f8;
+}
+
+.section1left button {
+    height: 2000px;
+}
+
+.section1 button {
+    height: 35px;
+    align-self: center;
+    margin-right: 20px;
+    padding: 0 20px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #1E5EFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.section1 a {
+    text-decoration: none;
+}

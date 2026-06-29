@@ -1,6 +1,7 @@
 const {prisma} = require('../../../../db')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const {cookies} = require('next/headers')
 
 async function POST(request) {
 
@@ -57,10 +58,18 @@ async function POST(request) {
             }
         )
 
+        const cookieStore = await cookies()
+        cookieStore.set('token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 24 * 27,
+            path: '/'
+        })
+
         return Response.json(
             {
                 message: "Login exitoso",
-                token
             },
             {
                 status: 200

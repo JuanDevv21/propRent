@@ -7,28 +7,107 @@ datasource db {
   provider = "postgresql"
 }
 
+enum estadoPropiedad {
+  DISPONIBLE
+  OCUPADA
+  MANTENIMIENTO
+}
+
+enum estadoPago {
+  PENDIENTE
+  PAGADO
+  ATRASADO
+}
+
 model Propietario {
-  id                   Int      @id @default(autoincrement())
+  id                   Int         @id @default(autoincrement())
   nombrePropietario    String
-  documentoPropietario Int      @unique
-  departamento         String   @default("")
-  ciudad               String   @default("")
+  documentoPropietario Int         @unique
+  departamento         String      @default("")
+  ciudad               String      @default("")
   fechaNacimiento      DateTime
   telefono             String
-  emailPropietario     String   @unique
+  emailPropietario     String      @unique
   passwordPropietario  String
-  createdAt            DateTime @default(now())
+  createdAt            DateTime    @default(now())
+  propiedades          Propiedad[]
+  contratos            Contrato[]
 }
 
 model Inquilino {
-  id                 Int      @id @default(autoincrement())
+  id                 Int        @id @default(autoincrement())
   nombreInquilino    String
-  documentoInquilino Int      @unique
-  departamento       String   @default("")
-  ciudad             String   @default("")
+  documentoInquilino Int        @unique
+  departamento       String     @default("")
+  ciudad             String     @default("")
   fechaNacimiento    DateTime
   telefono           String
-  emailInquilino     String   @unique
+  emailInquilino     String     @unique
   passwordInquilino  String
-  createdAt          DateTime @default(now())
+  createdAt          DateTime   @default(now())
+  contratos          Contrato[]
+}
+
+model Propiedad {
+  id               Int             @id @default(autoincrement())
+  nombre           String
+  tipoPropiedad    String
+  direccion        String
+  ciudad           String
+  pais             String
+  codigoPostal     String
+  habitaciones     Int
+  area             Float
+  baños           Int
+  valorArriendo    Float
+  diaVencimiento   Int
+  imagen           String?
+  estado           estadoPropiedad
+  propietarioId    Int
+  depositoGarantia Int
+  propietario      Propietario     @relation(fields: [propietarioId], references: [id])
+  createdAt        DateTime        @default(now())
+  contratos        Contrato[]
+  gastos           Gasto[]
+}
+
+model Contrato {
+  id                Int      @id @default(autoincrement())
+  fechaInicio       DateTime
+  fechaFinalizacion DateTime
+  canon             Float
+
+  propietarioId Int
+  inquilinoId   Int
+  propiedadId   Int
+
+  propietario Propietario @relation(fields: [propietarioId], references: [id])
+  inquilino   Inquilino   @relation(fields: [inquilinoId], references: [id])
+  propiedad   Propiedad   @relation(fields: [propiedadId], references: [id])
+  createAt    DateTime    @default(now())
+
+  pagos Pago[]
+}
+
+model Gasto {
+  id          Int        @id @default(autoincrement())
+  concepto    String
+  monto       Float
+  fecha       DateTime   @default(now())
+  propiedadId Int?
+  propiedad   Propiedad? @relation(fields: [propiedadId], references: [id])
+  createdAt   DateTime   @default(now())
+}
+
+model Pago {
+  id        Int        @id @default(autoincrement())
+  valor     Float
+  extras    Float?
+  multa     Float?
+  fechaPago DateTime?
+  estado    estadoPago
+
+  contrato   Contrato? @relation(fields: [contratoId], references: [id])
+  contratoId Int?
+  createdAt  DateTime  @default(now())
 }

@@ -6,9 +6,11 @@ import Link from "next/link"
 import Image from "next/image"
 import Shield from "../../assets/check-shield.svg"
 import { colombia } from "@/data/Colombia"
-
+import { useRouter } from "next/navigation"
 
 const Propietario = () => {
+
+    const router = useRouter()
 
     const [tab, setTab] = useState('iniciar')
     const [nombrePropietario, setNombrePropietario] = useState('')
@@ -48,7 +50,8 @@ const Propietario = () => {
                 return
             }
             console.log(data)
-            alert('Login exitoso')
+            router.push('/Dashboard')
+            router.refresh()
         } catch(error) {
             console.error(error)
         }
