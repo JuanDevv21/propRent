@@ -1,0 +1,243 @@
+.formContainer {
+  max-width: 850px;
+  margin: 20px auto;
+  padding: 32px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif;
+  overflow: hidden; /* 👈 esto arregla el colapso de márgenes */
+}
+
+.stepsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 20px;
+  background-color: white;
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: white;
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #e2e8f0; /* Por defecto inactivo */
+}
+
+.stepNumberActive {
+  background-color: #2563eb;
+}
+
+.stepLabel {
+  color: #94a3b8;
+  font-weight: normal;
+  background-color: white;
+}
+
+.stepLabelActive {
+  color: #0f172a;
+  font-weight: bold;
+}
+
+.stepLine {
+  flex: 1;
+  height: 2px;
+  background-color: #e2e8f0;
+  margin: 0 16px;
+}
+
+.stepLineActive {
+  background-color: #2563eb;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 16px;
+  background-color: white;
+}
+
+.tilesGrid {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  background-color: white;
+}
+
+.tileCard {
+  flex: 1;
+  padding: 20px 12px;
+  border: 1px solid #e2e8f0;
+  background-color: transparent;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tileCardActive {
+  border: 2px solid #2563eb;
+  background-color: #f0f6ff;
+}
+
+.tileIcon {
+  font-size: 24px;
+  margin-bottom: 8px;
+  background-color: transparent;
+}
+
+.tileLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  background-color: transparent;
+}
+
+.tileLabelActive {
+  color: #2563eb;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+.formRow {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+.formField {
+  flex: 1;
+  background-color: white;
+}
+
+.formFieldFlex2 {
+  flex: 2;
+  background-color: white;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #334155;
+  background-color: white;
+}
+
+.input, .select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  background-color: white;
+}
+
+.input:focus, .select:focus {
+  border-color: #2563eb;
+}
+
+.select {
+  background-color: white;
+}
+
+.actionsContainer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #f1f5f9;
+  background-color: white;
+}
+
+.btnBack {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: white;
+  color: #475569;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btnBack:disabled {
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.btnNext {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btnNext:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.btnSubmit {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background-color: white;
+}
+
+.dropzone:hover {
+  background-color: #f8fafc;
+
+}
+
+.dropzoneIcon {
+  font-size: 32px;
+  background-color: transparent;
+}
+
+.dropzoneText {
+  margin: 8px 0 4px;
+  font-weight: 500;
+  color: #1e293b;
+  background-color: transparent;
+}
+
+.dropzoneSubtext {
+  font-size: 12px;
+  color: #64748b;
+  background-color: transparent;
+}

@@ -14,6 +14,7 @@ export async function getCurrentUser() {
         const propietario = await prisma.propietario.findUnique({
             where: { id: decoded.id},
             select: {
+                id: true,
                 nombrePropietario: true,
             }
         })
